@@ -27,18 +27,18 @@ class UserRegistrationForm(UserCreationForm):
                                                              'required': True,
                                                              'type': 'text',
                                                              'aria-describedby': 'usernameHelp'}))
-    email = forms.EmailField(label='Имя пользователя',
+    email = forms.EmailField(label='Email',
                                widget=forms.EmailInput(attrs={'placeholder': 'Введите email',
                                                              'class': 'form-control py-4',
                                                              'required': True,
                                                              'type': 'email',
                                                              'aria-describedby': 'emailHelp'}))
-    password = forms.CharField(label='Пароль',
+    password1 = forms.CharField(label='Пароль',
                                    widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль',
                                                                      'class': 'form-control py-4',
                                                                      'required': True,
                                                                      'type': 'password'}))
-    password2 = forms.CharField(label='Поторите пароль',
+    password2 = forms.CharField(label='Повторите пароль',
                                     widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль еще раз',
                                                                       'class': 'form-control py-4',
                                                                       'required': True,
@@ -46,4 +46,4 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'password2']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
