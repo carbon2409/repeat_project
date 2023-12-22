@@ -27,4 +27,3 @@ urlpatterns = [
     path('users/', include('users_app.urls', namespace='users_app')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# test
