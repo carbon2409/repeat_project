@@ -5,6 +5,15 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 class UserAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput({'class': 'form-control py-4',
+                                                                                 'placeholder': 'Введите имя пользователя',
+                                                                                 'required': True,
+                                                                                 'type': 'text'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput({'class': 'form-control py-4',
+                                                                           'placeholder': 'Введите пароль',
+                                                                           'required': True,
+                                                                           'type': 'password'}))
+
     class Meta:
         model = CustomUser
         fields = ('username', 'password')
@@ -28,21 +37,21 @@ class UserRegistrationForm(UserCreationForm):
                                                              'type': 'text',
                                                              'aria-describedby': 'usernameHelp'}))
     email = forms.EmailField(label='Email',
-                               widget=forms.EmailInput(attrs={'placeholder': 'Введите email',
-                                                             'class': 'form-control py-4',
-                                                             'required': True,
-                                                             'type': 'email',
-                                                             'aria-describedby': 'emailHelp'}))
+                             widget=forms.EmailInput(attrs={'placeholder': 'Введите email',
+                                                            'class': 'form-control py-4',
+                                                            'required': True,
+                                                            'type': 'email',
+                                                            'aria-describedby': 'emailHelp'}))
     password1 = forms.CharField(label='Пароль',
-                                   widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль',
-                                                                     'class': 'form-control py-4',
-                                                                     'required': True,
-                                                                     'type': 'password'}))
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль',
+                                                                  'class': 'form-control py-4',
+                                                                  'required': True,
+                                                                  'type': 'password'}))
     password2 = forms.CharField(label='Повторите пароль',
-                                    widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль еще раз',
-                                                                      'class': 'form-control py-4',
-                                                                      'required': True,
-                                                                      'type': 'password'}))
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль еще раз',
+                                                                  'class': 'form-control py-4',
+                                                                  'required': True,
+                                                                  'type': 'password'}))
 
     class Meta:
         model = CustomUser
