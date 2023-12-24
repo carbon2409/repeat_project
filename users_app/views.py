@@ -33,6 +33,5 @@ class UserRegistrationView(CreateView):
 
 class UserLoginView(LoginView):
     form_class = AuthenticationForm
-    success_url = reverse_lazy('main_page_url')
     template_name = 'users_app/login.html'
     context_object_name = 'form'
