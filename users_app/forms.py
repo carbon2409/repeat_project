@@ -1,7 +1,8 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.forms import ModelForm
 from .models import CustomUser
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
 
 class UserAuthenticationForm(AuthenticationForm):
@@ -56,3 +57,24 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+
+
+class ProfileForm(UserChangeForm):
+    name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={'type': 'text',
+                                                                      'class': 'form-control py-4',
+                                                                      'placeholder': 'Введите имя'}))
+    surname = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={'type': 'text',
+                                                                             'class': 'form-control py-4',
+                                                                             'placeholder': 'Введите фамилию'}))
+    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'type': 'text',
+                                                                                       'class': 'form-control py-4',
+                                                                                       'readonly': True}))
+    email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'type': 'email',
+                                                                           'class': 'form-control py-4',
+                                                                           'readonly': True}))
+    avatar = forms.ImageField(label='Аватарка', widget=forms.FileInput(attrs={'class':'custom-file-input',
+                                                                       'size': 50}))
+
+    class Meta:
+        fields = ['name', 'surname', 'username', 'email', 'avatar']
+        model = CustomUser

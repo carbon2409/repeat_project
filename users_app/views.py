@@ -1,9 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
-from .forms import UserRegistrationForm, AuthenticationForm
+from .forms import UserRegistrationForm, AuthenticationForm, UserChangeForm
 from .models import CustomUser
 from django.contrib import messages, auth
 
@@ -29,6 +29,14 @@ class UserRegistrationView(CreateView):
 #         return render(request, 'users_app/register.html', {'form': form})
 #     else:
 #         return render(request, 'users_app/register.html', context={'form': UserRegistrationForm()})
+
+
+class UserProfileView(UpdateView):
+    model = CustomUser
+    form_class = UserChangeForm
+    template_name = 'users_app/profile.html'
+    success_url = reverse_lazy('users_app:profile_url')
+    context_object_name = 'form'
 
 
 class UserLoginView(LoginView):
