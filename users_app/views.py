@@ -43,3 +43,7 @@ class UserLoginView(LoginView):
     form_class = AuthenticationForm
     template_name = 'users_app/login.html'
     context_object_name = 'form'
+
+
+class UserLogoutView(LogoutView):
+    template_name = 'index.html'

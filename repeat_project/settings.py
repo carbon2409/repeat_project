@@ -116,9 +116,9 @@ USE_I18N = True
 USE_TZ = True
 
 AUTH_USER_MODEL = 'users_app.CustomUser'
-
+LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
-
+LOGOUT_REDIRECT_URL = '/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
