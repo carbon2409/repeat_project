@@ -61,10 +61,10 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserProfileForm(UserChangeForm):
-    first_name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={'type': 'text',
+    first_name = forms.CharField(label='Имя', required=False, widget=forms.TextInput(attrs={'type': 'text',
                                                                       'class': 'form-control py-4',
                                                                       'placeholder': 'Введите имя'}))
-    last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={'type': 'text',
+    last_name = forms.CharField(label='Фамилия', required=False, widget=forms.TextInput(attrs={'type': 'text',
                                                                              'class': 'form-control py-4',
                                                                              'placeholder': 'Введите фамилию'}))
     username = forms.CharField(label='Имя пользователя', required=True, widget=forms.TextInput(attrs={'type': 'text',
