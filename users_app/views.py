@@ -1,5 +1,5 @@
 from urllib import request
-
+from .common.mixins import UserMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
@@ -33,15 +33,15 @@ class UserRegistrationView(CreateView):
 #         return render(request, 'users_app/register.html', context={'form': UserRegistrationForm()})
 
 
-class UserProfileView(UpdateView):
+class UserProfileView(UserMixin, UpdateView):
     model = CustomUser
     form_class = UserProfileForm
     template_name = 'users_app/profile.html'
     context_object_name = 'form'
+    title = 'Профиль'
 
     def get_success_url(self):
         return reverse_lazy('users_app:profile_url', kwargs={'pk': self.object.id})
-
 
 
 class UserLoginView(LoginView):
