@@ -28,13 +28,14 @@ class UserRegistrationForm(UserCreationForm):
     name = forms.CharField(label='Имя',
                            widget=forms.TextInput(attrs={'placeholder': 'Введите имя',
                                                          'class': 'form-control py-4',
-                                                         'required': True,
                                                          'type': 'text'}))
-    surname = forms.CharField(label='Фамилия',
+
+    surname = forms.CharField(required=False,
+                              label='Фамилия',
                               widget=forms.TextInput(attrs={'placeholder': 'Введите фамилию',
                                                             'class': 'form-control py-4',
-                                                            'required': False,
                                                             'type': 'text'}))
+
     username = forms.CharField(label='Имя пользователя',
                                widget=forms.TextInput(attrs={'placeholder': 'Введите имя пользователя',
                                                              'class': 'form-control py-4',
@@ -70,7 +71,7 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['username', 'name', 'surname', 'email', 'password1', 'password2']
 
 
 class UserProfileForm(UserChangeForm):
