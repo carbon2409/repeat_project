@@ -131,6 +131,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Fixtures
 FIXTURE_DIRS = [BASE_DIR / 'fixtures']
 
+# Email
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'continental-kzn@yandex.ru'
+EMAIL_HOST_PASSWORD = 'jsomueaweobcxsay'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
