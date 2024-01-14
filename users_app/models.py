@@ -26,11 +26,11 @@ class EmailVerificationModel(models.Model):
     expired_at = models.DateTimeField()
 
     def send_verification_email(self):
-        link = f'http://127.0.0.1:8000/users/verify/{self.user.id}/{self.code}'
+        link = f'http://127.0.0.1:8001/users/verify/{self.user.id}/{self.code}'
         send_mail(
             subject='Subject msg',
             message=f'Для подтверждения email перейдите по ссылке {link}',
-            from_email='insaf@yandex.ru',
+            from_email='continental-kzn@yandex.ru',
             recipient_list=[self.user.email]
 
         )
