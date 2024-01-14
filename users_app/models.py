@@ -2,6 +2,7 @@ import uuid
 from django.core.mail import send_mail
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 
 class CustomUser(AbstractUser):
@@ -9,6 +10,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=128, blank=True, null=True, verbose_name='Имя')
     last_name = models.CharField(max_length=128, blank=True, null=True, verbose_name='Фамилия')
     is_verified = models.BooleanField(default=False, verbose_name='Подтвержден email?')
+
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
@@ -24,7 +26,7 @@ class EmailVerificationModel(models.Model):
     expired_at = models.DateTimeField()
 
     def send_verification_email(self):
-        link = f'http://127.0.0.1:8000/verify/{self.code}'
+        link = f'http://127.0.0.1:8000/users/verify/{self.user.id}/{self.code}'
         send_mail(
             subject='Subject msg',
             message=f'Для подтверждения email перейдите по ссылке {link}',
@@ -32,3 +34,6 @@ class EmailVerificationModel(models.Model):
             recipient_list=[self.user.email]
 
         )
+
+    def is_expired(self):
+        return True if self.expired_at < timezone.now() else False

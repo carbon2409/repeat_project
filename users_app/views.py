@@ -1,12 +1,13 @@
 from urllib import request
+
 from .common.mixins import UserMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserRegistrationForm, UserAuthenticationForm, UserProfileForm
-from .models import CustomUser
+from .models import CustomUser, EmailVerificationModel
 from django.contrib import messages, auth
 
 
@@ -52,3 +53,18 @@ class UserLoginView(LoginView):
 
 class UserLogoutView(LogoutView):
     template_name = 'index.html'
+
+
+class EmailVerifyView(TemplateView):
+    template_name = 'users_app/email_verification.html'
+
+    def get(self, request, *args, **kwargs):
+        user = CustomUser.objects.get(id=kwargs['id'])
+        email_verify_obj = EmailVerificationModel.objects.filter(code=self.kwargs.get('code'),
+                                                                 user=user)
+        if email_verify_obj.exists() and not email_verify_obj.first().is_expired():
+            user.is_verified = True
+            user.save()
+            return render(request, 'users_app/email_verification.html')
+        else:
+            return HttpResponseRedirect('<h1>Нет такого</h1>')
