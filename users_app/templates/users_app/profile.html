@@ -78,22 +78,31 @@
 
         </div>
         <div class="col-lg-5">
+            {% if not basket %}
             <h4 class="mt-3 mb-3 d-flex justify-content-between align-items-center mb-3">
+                Корзина пуста <span class="badge badge-secondary badge-pill">3</span>
+            </h4>
+                <a class="btn btn-success btn-lg float-right" href="{% url 'main_page_url' %}">
+                За покупками!
+            </a>
+                {% else %}
+                <h4 class="mt-3 mb-3 d-flex justify-content-between align-items-center mb-3">
                 Корзина <span class="badge badge-secondary badge-pill">3</span>
             </h4>
+                {% for item in basket %}
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Product name</h5>
-                    <p class="card-text">Product description</p>
+                    <h5 class="card-title">{{ item.product.name }}</h5>
+                    <p class="card-text">{{ item.product.description }}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item bg-light">
                         <div class="row text-center">
                             <div class="col-lg-4">
                                 <input name="basketID" type="number" class="form-control"
-                                       value="1" min="0">
+                                       value="{{ item.quantity }}" min="0">
                             </div>
-                            <div class="col-lg-4">2 390 руб.</div>
+                            <div class="col-lg-4">{{ item.total_price }} руб.</div>
                             <div class="col-lg-4">
                                 <a href="#">
                                     <i class="fas fa-trash"></i>
@@ -103,15 +112,17 @@
                     </li>
                 </ul>
             </div>
+                {% endfor %}
             <div class="card mb-3">
                 <div class="card-footer">
                     <p class="float-left">Итого</p>
-                    <h4 class="float-right">2 390 руб.</h4>
+                    <h4 class="float-right">{{ basket.total_price }} руб.</h4>
                 </div>
             </div>
             <a class="btn btn-success btn-lg float-right" href="../../../store-templates/orders/order-create.html">
                 Оформить заказ
             </a>
+    {% endif %}
         </div>
     </div>
 </div>
