@@ -2,6 +2,7 @@ from django.core.mail import send_mail
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from products_app.models import ProductsModel
 
 
 class CustomUser(AbstractUser):
@@ -18,6 +19,25 @@ class CustomUser(AbstractUser):
         return f'Пользователь {self.username}'
 
 
+class BasketItemModel(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE, related_name='Продукт')
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
+
+    def total_price(self):
+        return self.product.price * self.quantity
+
+
+class BasketModel(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    items = models.ManyToManyField(BasketItemModel)
+
+    def total_price(self):
+        items = BasketItemModel.objects.filter(user=self.user)
+        total_price = 0
+        for item in items:
+            total_price += item.product.price * item.quantity
+        return total_price
 
 
 
