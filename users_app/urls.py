@@ -1,6 +1,8 @@
-from django.urls import path
-import users_app.views as views
 from django.contrib.auth.decorators import login_required
+from django.urls import path
+
+import users_app.views as views
+
 app_name = 'users_app'
 
 urlpatterns = [
@@ -10,5 +12,6 @@ urlpatterns = [
     path('verify/<int:id>/<str:code>/', views.EmailVerifyView.as_view(), name='email_verification_url'),
     path('profile/<int:pk>/', login_required(views.UserProfileView.as_view()), name='profile_url'),
     path('products/add_to_cart/<int:id>', login_required(views.AddToCartView.as_view()), name='add_to_cart_url'),
-    path('products/remove_from_cart/<int:id>', login_required(views.RemoveFromCartView.as_view()), name='remove_from_cart_url'),
+    path('products/remove_from_cart/<int:id>', login_required(views.RemoveFromCartView.as_view()),
+         name='remove_from_cart_url'),
 ]

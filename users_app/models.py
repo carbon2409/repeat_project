@@ -1,7 +1,8 @@
+from django.contrib.auth.models import AbstractUser
 from django.core.mail import send_mail
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+
 from products_app.models import ProductsModel
 
 
@@ -26,7 +27,6 @@ class BasketModel(models.Model):
 
     def total_price(self):
         return self.product.price * self.quantity
-
 
 
 class EmailVerificationModel(models.Model):

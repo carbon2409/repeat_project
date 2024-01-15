@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView
-from .models import ProductsModel, CategoryModel
+
+from .models import CategoryModel, ProductsModel
 
 
 def main_page(request):
@@ -22,4 +23,3 @@ class ProductListView(ListView):
         context = super().get_context_data()
         context['categories'] = CategoryModel.objects.all()
         return context
-

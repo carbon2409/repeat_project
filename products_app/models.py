@@ -7,7 +7,7 @@ class CategoryModel(models.Model):
     slug = models.SlugField(null=False, blank=True)
 
     def save(
-        self, force_insert=False, force_update=False, using=None, update_fields=None
+            self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
         self.slug = slugify(self.name)
         super().save()

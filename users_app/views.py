@@ -1,14 +1,16 @@
-from urllib import request
-from .common.mixins import UserMixin
+from django.contrib import messages
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView, TemplateView
-from django.contrib.auth.views import LoginView, LogoutView
-from .forms import UserRegistrationForm, UserAuthenticationForm, UserProfileForm
-from .models import CustomUser, EmailVerificationModel, BasketModel
+from django.views.generic import CreateView, TemplateView, UpdateView
+
 from products_app.models import ProductsModel
-from django.contrib import messages, auth
+
+from .common.mixins import UserMixin
+from .forms import (UserAuthenticationForm, UserProfileForm,
+                    UserRegistrationForm)
+from .models import BasketModel, CustomUser, EmailVerificationModel
 
 
 class UserRegistrationView(CreateView):
@@ -22,6 +24,7 @@ class UserRegistrationView(CreateView):
         messages.success(request, message='Вы успешно зарегистрировались')
         response = super().post(request)
         return response
+
 
 # def registration(request):
 #     if request.method == 'POST':

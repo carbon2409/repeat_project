@@ -1,11 +1,14 @@
+import uuid
+from datetime import timedelta
+
 from django import forms
+from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
+                                       UserCreationForm)
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from .models import CustomUser, EmailVerificationModel
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
-from datetime import timedelta
 from django.utils.timezone import now
-import uuid
+
+from .models import CustomUser, EmailVerificationModel
 
 
 class UserAuthenticationForm(AuthenticationForm):
@@ -26,15 +29,15 @@ class UserAuthenticationForm(AuthenticationForm):
 
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(label='Имя',
-                           widget=forms.TextInput(attrs={'placeholder': 'Введите имя',
-                                                         'class': 'form-control py-4',
-                                                         'type': 'text'}))
+                                 widget=forms.TextInput(attrs={'placeholder': 'Введите имя',
+                                                               'class': 'form-control py-4',
+                                                               'type': 'text'}))
 
     last_name = forms.CharField(required=False,
-                              label='Фамилия',
-                              widget=forms.TextInput(attrs={'placeholder': 'Введите фамилию',
-                                                            'class': 'form-control py-4',
-                                                            'type': 'text'}))
+                                label='Фамилия',
+                                widget=forms.TextInput(attrs={'placeholder': 'Введите фамилию',
+                                                              'class': 'form-control py-4',
+                                                              'type': 'text'}))
 
     username = forms.CharField(label='Имя пользователя',
                                widget=forms.TextInput(attrs={'placeholder': 'Введите имя пользователя',
@@ -63,11 +66,10 @@ class UserRegistrationForm(UserCreationForm):
         user = super().save(commit=True)
         email_verification = EmailVerificationModel.objects.create(user=user,
                                                                    code=uuid.uuid4(),
-                                                                   expired_at=now()+timedelta(hours=48),
+                                                                   expired_at=now() + timedelta(hours=48),
                                                                    created_at=now())
         email_verification.send_verification_email()
         return user
-
 
     class Meta:
         model = CustomUser
@@ -76,20 +78,21 @@ class UserRegistrationForm(UserCreationForm):
 
 class UserProfileForm(UserChangeForm):
     first_name = forms.CharField(label='Имя', required=False, widget=forms.TextInput(attrs={'type': 'text',
-                                                                      'class': 'form-control py-4',
-                                                                      'placeholder': 'Введите имя'}))
+                                                                                            'class': 'form-control py-4',
+                                                                                            'placeholder': 'Введите имя'}))
     last_name = forms.CharField(label='Фамилия', required=False, widget=forms.TextInput(attrs={'type': 'text',
-                                                                             'class': 'form-control py-4',
-                                                                             'placeholder': 'Введите фамилию'}))
+                                                                                               'class': 'form-control py-4',
+                                                                                               'placeholder': 'Введите фамилию'}))
     username = forms.CharField(label='Имя пользователя', required=True, widget=forms.TextInput(attrs={'type': 'text',
                                                                                                       'class': 'form-control py-4',
                                                                                                       'readonly': True}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'type': 'email',
                                                                            'class': 'form-control py-4',
                                                                            'readonly': True}))
-    avatar = forms.ImageField(label='Изменить фото профиля', widget=forms.FileInput(attrs={#'class': 'custom-file-input',
-                                                                              'size': 50,
-                                                                              'required': False}))
+    avatar = forms.ImageField(label='Изменить фото профиля', widget=forms.FileInput(attrs={
+        # 'class': 'custom-file-input',
+        'size': 50,
+        'required': False}))
 
     class Meta:
         fields = ['first_name', 'last_name', 'username', 'email', 'avatar']
