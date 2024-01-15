@@ -94,3 +94,14 @@ class AddToCartView(TemplateView):
         else:
             BasketModel.objects.create(user=user, product=product)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class RemoveFromCartView(TemplateView):
+    template_name = 'users_app/profile.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        product = ProductsModel.objects.get(id=kwargs['id'])
+        items_queryset = BasketModel.objects.filter(user=user, product=product)
+        items_queryset.delete()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
