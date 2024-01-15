@@ -20,7 +20,7 @@ class CustomUser(AbstractUser):
 
 
 class BasketModel(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE, related_name='Продукт')
     quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
 

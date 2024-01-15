@@ -44,6 +44,16 @@ class UserProfileView(UserMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('users_app:profile_url', kwargs={'pk': self.object.id})
 
+    def get_context_data(self, **kwargs):
+        user = self.object
+        items_queryset = BasketModel.objects.filter(user=user)
+        context = super().get_context_data(**kwargs)
+        totally = 0
+        for item in items_queryset:
+            totally += item.product.price * item.quantity
+        context['totally'] = totally
+        return context
+
 
 class UserLoginView(LoginView):
     form_class = UserAuthenticationForm
@@ -76,5 +86,11 @@ class AddToCartView(TemplateView):
     def get(self, request, *args, **kwargs):
         user = request.user
         product = ProductsModel.objects.get(id=kwargs['id'])
-        items_queryset = BasketModel.objects.filter(product=product)
+        items_queryset = BasketModel.objects.filter(user=user, product=product)
         if items_queryset.exists():
+            item = items_queryset.first()
+            item.quantity += 1
+            item.save()
+        else:
+            BasketModel.objects.create(user=user, product=product)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
