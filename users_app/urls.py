@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserRegistrationView, UserLoginView, UserProfileView, UserLogoutView, EmailVerifyView
+from .views import UserRegistrationView, UserLoginView, UserProfileView, UserLogoutView, EmailVerifyView, AddToCartView
 from django.contrib.auth.decorators import login_required
 app_name = 'users_app'
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/', login_required(UserLogoutView.as_view()), name='logout_url'),
     path('verify/<int:id>/<str:code>/', EmailVerifyView.as_view(), name='email_verification_url'),
     path('profile/<int:pk>/', login_required(UserProfileView.as_view()), name='profile_url'),
+    path('products/add_to_cart/<int:id>', login_required(AddToCartView.as_view()), name='add_to_cart_url'),
 ]

@@ -1,5 +1,4 @@
 from urllib import request
-
 from .common.mixins import UserMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -7,7 +6,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserRegistrationForm, UserAuthenticationForm, UserProfileForm
-from .models import CustomUser, EmailVerificationModel
+from .models import CustomUser, EmailVerificationModel, BasketModel
+from products_app.models import ProductsModel
 from django.contrib import messages, auth
 
 
@@ -68,3 +68,13 @@ class EmailVerifyView(TemplateView):
             return render(request, 'users_app/email_verification.html')
         else:
             return HttpResponseRedirect('<h1>Нет такого</h1>')
+
+
+class AddToCartView(TemplateView):
+    template_name = 'product_app/products.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        product = ProductsModel.objects.get(id=kwargs['id'])
+        items_queryset = BasketModel.objects.filter(product=product)
+        if items_queryset.exists():
