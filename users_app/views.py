@@ -84,7 +84,7 @@ class EmailVerifyView(TemplateView):
 
 
 class AddToCartView(TemplateView):
-    template_name = 'product_app/products.html'
+    template_name = 'products_app/products.html'
 
     def get(self, request, *args, **kwargs):
         user = request.user

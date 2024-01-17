@@ -10,7 +10,7 @@ def main_page(request):
 
 class ProductListView(ListView):
     model = ProductsModel
-    template_name = 'product_app/products.html'
+    template_name = 'products_app/products.html'
     context_object_name = 'product_objects'
 
     def get_queryset(self):
