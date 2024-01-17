@@ -1,0 +1,82 @@
+[
+  {
+    "model": "users_app.customuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$720000$3zSbGnsD6JGfA0m7NcKPML$id2/zTmtnbzFa5gKOFNrueUeWmOrvnuDfpEwsi7Gps0=",
+      "last_login": "2024-01-15T21:03:41.013Z",
+      "is_superuser": true,
+      "username": "carbon2409",
+      "email": "carbon24092409@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-12-16T12:24:07.956Z",
+      "avatar": "",
+      "first_name": "",
+      "last_name": "",
+      "is_verified": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users_app.customuser",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$720000$AApBaPYIhwrrS04ZInFCMU$SXUAROle4Cnd8CxB1sx+77nRZFWjjl+l30/iOIz8diI=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "qwerty",
+      "email": "qwerety@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-12-22T15:51:11.688Z",
+      "avatar": "",
+      "first_name": "",
+      "last_name": "",
+      "is_verified": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users_app.customuser",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$720000$Ifzli8BXaozXdEeRFcHRp5$dbGfBhHLOYxXeDyDfRHkTeN2P4dwzCu+2B6IhMqw5ek=",
+      "last_login": "2023-12-29T17:06:33.801Z",
+      "is_superuser": false,
+      "username": "carbo",
+      "email": "vguvguvgu@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-12-24T19:00:26.522Z",
+      "avatar": "user_avatar/photo_2022-11-07_20-40-27.jpg",
+      "first_name": "�����",
+      "last_name": "Nizamov",
+      "is_verified": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users_app.customuser",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$720000$V1AiOkCVdlXwxC9q5hmEwz$yG6hWp5YM/x8YY41ut6u+jU2gY6z3fbLQwTjhDLc3XI=",
+      "last_login": "2024-01-17T16:49:59.897Z",
+      "is_superuser": false,
+      "username": "insafaang",
+      "email": "insafaang@yandex.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-17T16:49:05.579Z",
+      "avatar": "",
+      "first_name": "Insaf",
+      "last_name": "",
+      "is_verified": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "model": "users_app.basketmodel",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "product": 5,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "users_app.basketmodel",
+    "pk": 5,
+    "fields": {
+      "user": 1,
+      "product": 1,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "users_app.basketmodel",
+    "pk": 6,
+    "fields": {
+      "user": 1,
+      "product": 2,
+      "quantity": 1
+    }
+  }
+]

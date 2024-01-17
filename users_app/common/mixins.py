@@ -1,4 +1,3 @@
-
 class UserMixin:
     title = None
 

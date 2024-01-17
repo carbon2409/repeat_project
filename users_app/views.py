@@ -1,14 +1,16 @@
-from urllib import request
-
-from .common.mixins import UserMixin
+from django.contrib import messages
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView, TemplateView
-from django.contrib.auth.views import LoginView, LogoutView
-from .forms import UserRegistrationForm, UserAuthenticationForm, UserProfileForm
-from .models import CustomUser, EmailVerificationModel
-from django.contrib import messages, auth
+from django.views.generic import CreateView, TemplateView, UpdateView
+
+from products_app.models import ProductsModel
+
+from .common.mixins import UserMixin
+from .forms import (UserAuthenticationForm, UserProfileForm,
+                    UserRegistrationForm)
+from .models import BasketModel, CustomUser, EmailVerificationModel
 
 
 class UserRegistrationView(CreateView):
@@ -22,6 +24,7 @@ class UserRegistrationView(CreateView):
         messages.success(request, message='Вы успешно зарегистрировались')
         response = super().post(request)
         return response
+
 
 # def registration(request):
 #     if request.method == 'POST':
@@ -43,6 +46,16 @@ class UserProfileView(UserMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('users_app:profile_url', kwargs={'pk': self.object.id})
+
+    def get_context_data(self, **kwargs):
+        user = self.object
+        items_queryset = BasketModel.objects.filter(user=user)
+        context = super().get_context_data(**kwargs)
+        totally = 0
+        for item in items_queryset:
+            totally += item.product.price * item.quantity
+        context['totally'] = totally
+        return context
 
 
 class UserLoginView(LoginView):
@@ -68,3 +81,30 @@ class EmailVerifyView(TemplateView):
             return render(request, 'users_app/email_verification.html')
         else:
             return HttpResponseRedirect('<h1>Нет такого</h1>')
+
+
+class AddToCartView(TemplateView):
+    template_name = 'products_app/products.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        product = ProductsModel.objects.get(id=kwargs['id'])
+        items_queryset = BasketModel.objects.filter(user=user, product=product)
+        if items_queryset.exists():
+            item = items_queryset.first()
+            item.quantity += 1
+            item.save()
+        else:
+            BasketModel.objects.create(user=user, product=product)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class RemoveFromCartView(TemplateView):
+    template_name = 'users_app/profile.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        product = ProductsModel.objects.get(id=kwargs['id'])
+        items_queryset = BasketModel.objects.filter(user=user, product=product)
+        items_queryset.delete()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
