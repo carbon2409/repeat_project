@@ -36,6 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+
+    'allauth.socialaccount.providers.github',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
     'products_app',
     'users_app',
 ]
@@ -48,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'repeat_project.urls'
@@ -104,6 +112,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# OAuth
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'SCOPE': [
+            'user',
+        ],
+    }
+}
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
