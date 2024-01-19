@@ -14,7 +14,7 @@ class ProductsModelTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'products_app/products.html')
     def test_products_list(self):
-        path = reverse('products_app:product_list_url')
+        path = reverse('products_app:product_list_url', kwargs={'page_number': 1})
         response = self.client.get(path)
         self._common_tests(response)
         self.assertEqual(list(response.context_data['product_objects']), list(self.products))

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView
 
 from .models import CategoryModel, ProductsModel
-
+from django.core.paginator import Paginator
 
 def main_page(request):
     return render(request, 'index.html')
@@ -11,7 +11,11 @@ def main_page(request):
 class ProductListView(ListView):
     model = ProductsModel
     template_name = 'products_app/products.html'
-    context_object_name = 'product_objects'
+    context_object_name = 'page_obj'
+    paginate_by = 3
+    page_kwarg = 'page_number'
+    paginator_class = Paginator
+    paginate_orphans = 2
 
     def get_queryset(self):
         queryset = ProductsModel.objects.all()
