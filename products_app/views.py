@@ -3,6 +3,7 @@ from django.views.generic import ListView
 
 from .models import CategoryModel, ProductsModel
 from django.core.paginator import Paginator
+from django.core.cache import cache
 
 def main_page(request):
     return render(request, 'index.html')
@@ -25,5 +26,9 @@ class ProductListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['categories'] = CategoryModel.objects.all()
+        categories = cache.get('categories')
+        if not categories:
+            categories = CategoryModel.objects.all()
+            cache.set('categories', categories, 30)
+        context['categories'] = categories
         return context

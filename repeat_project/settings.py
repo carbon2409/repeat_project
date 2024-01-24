@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-k)kd)ivp@5$s10_^x(_84d-smirz%2z(3(tb$v*#9igl+h0_1y
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    "localhost",
+    # ...
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'debug_toolbar',
 
     'allauth.socialaccount.providers.github',
     'allauth',
@@ -54,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     "allauth.account.middleware.AccountMiddleware",
 ]
 
@@ -91,6 +97,16 @@ DATABASES = {
         'PASSWORD': '197053',
         'HOST': 'localhost',
         'PORT': '5433',
+    }
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
     }
 }
 
