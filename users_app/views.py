@@ -47,15 +47,6 @@ class UserProfileView(UserMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('users_app:profile_url', kwargs={'pk': self.object.id})
 
-    def get_context_data(self, **kwargs):
-        user = self.object
-        items_queryset = BasketModel.objects.filter(user=user)
-        context = super().get_context_data(**kwargs)
-        totally = 0
-        for item in items_queryset:
-            totally += item.product.price * item.quantity
-        context['totally'] = totally
-        return context
 
 
 class UserLoginView(LoginView):

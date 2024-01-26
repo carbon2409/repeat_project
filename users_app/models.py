@@ -20,10 +20,16 @@ class CustomUser(AbstractUser):
         return f'Пользователь {self.username}'
 
 
+class BasketQuerySet(models.QuerySet):
+    def totally(self):
+        return sum([item.total_price() for item in self])
+
 class BasketModel(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     product = models.ForeignKey(ProductsModel, on_delete=models.CASCADE, related_name='Продукт')
     quantity = models.PositiveIntegerField(default=1, verbose_name='Количество')
+
+    objects = BasketQuerySet.as_manager()
 
     def total_price(self):
         return self.product.price * self.quantity

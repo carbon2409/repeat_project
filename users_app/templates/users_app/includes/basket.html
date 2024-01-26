@@ -38,10 +38,10 @@
             <div class="card mb-3">
                 <div class="card-footer">
                     <p class="float-left">Итого</p>
-                    <h4 class="float-right">{{ totally }} руб.</h4>
+                    <h4 class="float-right">{{ basket.totally }} руб.</h4>
                 </div>
             </div>
-            <a class="btn btn-success btn-lg float-right" href="../../../store-templates/orders/order-create.html">
+            <a class="btn btn-success btn-lg float-right" href="{% url 'orders_app:create_order_url' %}">
                 Оформить заказ
             </a>
     {% endif %}
