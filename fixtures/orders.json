@@ -1,0 +1,72 @@
+[
+  {
+    "model": "orders_app.ordermodel",
+    "pk": 8,
+    "fields": {
+      "user": 15,
+      "basket": {},
+      "first_name": "Insaf",
+      "last_name": "Nizamov",
+      "email": "carbon24092409@gmail.com",
+      "address": "Респ Татарстан, г. Нижнекамск, пр-кт Мира, д. 24А, кв. 25",
+      "created_at": "2024-01-26T21:54:30.971Z",
+      "status": 0
+    }
+  },
+  {
+    "model": "orders_app.ordermodel",
+    "pk": 14,
+    "fields": {
+      "user": 15,
+      "basket": {},
+      "first_name": "zvgzer",
+      "last_name": "zdbh",
+      "email": "insafaang@yandex.ru",
+      "address": "dhr",
+      "created_at": "2024-01-26T22:33:37.435Z",
+      "status": 0
+    }
+  },
+  {
+    "model": "orders_app.ordermodel",
+    "pk": 16,
+    "fields": {
+      "user": 15,
+      "basket": {},
+      "first_name": "zvgz",
+      "last_name": "zdbh",
+      "email": "insafaang@yandex.ru",
+      "address": "ezdr5hdtgjn",
+      "created_at": "2024-01-26T22:45:18.127Z",
+      "status": 0
+    }
+  },
+  {
+    "model": "orders_app.ordermodel",
+    "pk": 17,
+    "fields": {
+      "user": 15,
+      "basket": {},
+      "first_name": "asd",
+      "last_name": "sgsg",
+      "email": "qafaf@mail.ru",
+      "address": "dcfgnxf",
+      "created_at": "2024-01-26T22:46:44.266Z",
+      "status": 0
+    }
+  },
+  {
+    "model": "orders_app.ordermodel",
+    "pk": 18,
+    "fields": {
+      "user": 15,
+      "basket": {},
+      "first_name": "asdxb xzb",
+      "last_name": "sgsg",
+      "email": "dgdfgdfg@mail.ru",
+      "address": "dcfgnxf",
+      "created_at": "2024-01-26T22:49:40.841Z",
+      "status": 0
+    }
+  }
+]

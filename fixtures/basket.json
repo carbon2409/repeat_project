@@ -1,28 +1,37 @@
 [
   {
     "model": "users_app.basketmodel",
-    "pk": 2,
+    "pk": 7,
     "fields": {
-      "user": 1,
-      "product": 5,
-      "quantity": 1
-    }
-  },
-  {
-    "model": "users_app.basketmodel",
-    "pk": 5,
-    "fields": {
-      "user": 1,
+      "user": 7,
       "product": 1,
+      "quantity": 2
+    }
+  },
+  {
+    "model": "users_app.basketmodel",
+    "pk": 8,
+    "fields": {
+      "user": 7,
+      "product": 2,
       "quantity": 1
     }
   },
   {
     "model": "users_app.basketmodel",
-    "pk": 6,
+    "pk": 12,
     "fields": {
-      "user": 1,
-      "product": 2,
+      "user": 15,
+      "product": 1,
+      "quantity": 2
+    }
+  },
+  {
+    "model": "users_app.basketmodel",
+    "pk": 13,
+    "fields": {
+      "user": 15,
+      "product": 3,
       "quantity": 1
     }
   }
