@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static humanize %}
     {% block title %}Store - Оформление заказа{% endblock %}
 
 {% block bootstrap_core_css %}
@@ -35,12 +35,12 @@
                             <h6 class="my-0">{{ item.product.name }}</h6>
                             <small class="text-muted">{{ item.product.quantity }} шт.</small>
                         </div>
-                        <span class="text-muted">{{ item.total_price }} руб.</span>
+                        <span class="text-muted">{{ item.total_price|intcomma }} руб.</span>
                     </li>
                     {% endfor %}
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Сумма к оплате</span>
-                        <strong>{{ basket.totally }} руб.</strong>
+                        <strong>{{ basket.totally|intcomma }} руб.</strong>
                     </li>
                 </ul>
             </div>
