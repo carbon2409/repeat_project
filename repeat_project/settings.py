@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,6 +29,7 @@ SECRET_KEY = 'django-insecure-k)kd)ivp@5$s10_^x(_84d-smirz%2z(3(tb$v*#9igl+h0_1y
 DEBUG = True
 
 ALLOWED_HOSTS = []
+DOMAIN_NAME = 'http://127.0.0.1:8001'
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
@@ -151,7 +156,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 LANGUAGE_CODE = 'ru-Ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Ru'
 
 USE_I18N = True
 
@@ -175,12 +180,17 @@ FIXTURE_DIRS = [BASE_DIR / 'fixtures']
 
 # Email
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_USE_SSL = True
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'continental-kzn@yandex.ru'
-EMAIL_HOST_PASSWORD = 'jsomueaweobcxsay'
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Stripe
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')

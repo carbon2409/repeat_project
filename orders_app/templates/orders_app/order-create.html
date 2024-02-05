@@ -15,9 +15,11 @@
 {% block content %}
 <!-- Page Content -->
 <section>
+    {% if form.errors %}
     <div class="alert alert-warning text-center" role="alert">
         {{ form.errors }}.
     </div>
+    {% endif %}
     <div class="container">
         <div class="py-5 text-center">
             <h1>Оформление заказа</h1>
