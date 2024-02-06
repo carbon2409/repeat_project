@@ -34,6 +34,15 @@ class BasketModel(models.Model):
     def total_price(self):
         return self.product.price * self.quantity
 
+    def to_json(self):
+        basket_item = {
+            'product_name': self.product.name,
+            'quantity': self.quantity,
+            'price': float(self.product.price),
+            'total_price': float(self.total_price())
+        }
+        return basket_item
+
 
 class EmailVerificationModel(models.Model):
     code = models.UUIDField(primary_key=True, editable=False)

@@ -88,5 +88,6 @@ def stripe_webhook_view(request):
 
 
 def fulfill_order(session):
-    # TODO: fill me in
-    print("Fulfilling order")
+    order_id = session.metadata['order_id']
+    order = OrderModel.objects.get(id=order_id)
+    order.actions_after_payment()

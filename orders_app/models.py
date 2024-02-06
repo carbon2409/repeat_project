@@ -1,5 +1,5 @@
 from django.db import models
-from users_app.models import CustomUser
+from users_app.models import CustomUser, BasketModel
 
 class OrderModel(models.Model):
     CREATED = 0
@@ -23,5 +23,18 @@ class OrderModel(models.Model):
 
     def __str__(self):
         return f'Заказ №{self.id} - {self.first_name}  {self.last_name}'
+
+    def actions_after_payment(self):
+        basket_items = BasketModel.objects.filter(user=self.user)
+        self.status = self.PAID
+        basket_history = {
+            'product_items': [items.to_json() for items in basket_items],
+            'totally': float(basket_items.objects.totally())
+        }
+        self.basket = basket_history
+        basket_items.delete()
+        self.save()
+
+
 
 
