@@ -44,6 +44,6 @@ tzdata==2023.3
 urllib3==2.1.0
 wcwidth==0.2.12
 
-stripe~=8.0.0
+stripe~=8.1.0
 pytils~=0.4.1
 python-dotenv~=1.0.1

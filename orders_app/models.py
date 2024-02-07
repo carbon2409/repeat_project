@@ -28,12 +28,12 @@ class OrderModel(models.Model):
         basket_items = BasketModel.objects.filter(user=self.user)
         self.status = self.PAID
         basket_history = {
-            'product_items': [items.to_json() for items in basket_items],
-            'totally': float(basket_items.objects.totally())
+            'product_items': [item.to_json() for item in basket_items],
+            'totally': float(basket_items.totally())
         }
         self.basket = basket_history
-        basket_items.delete()
         self.save()
+        basket_items.delete()
 
 
 

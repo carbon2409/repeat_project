@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
+from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
+from django.views.generic .detail import DetailView
 from .forms import CreateOrderForm
 from .models import OrderModel
 from users_app.models import BasketModel, CustomUser
@@ -27,14 +29,16 @@ class CreateOrderView(CreateView):
 
     def post(self, request, *args, **kwargs):
         super().post(self, request, *args, **kwargs)
+        basket_items = BasketModel.objects.filter(user=self.request.user)
+        line_items = []
+        for item in basket_items:
+            data = {
+                'price': item.product.stripe_price_id,
+                'quantity': item.quantity
+            }
+            line_items.append(data)
         checkout_session = stripe.checkout.Session.create(
-            line_items=[
-                {
-                    # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                    'price': 'price_1OdyPVAs5NfXtxw43dBBGHOZ',
-                    'quantity': 1,
-                },
-            ],
+            line_items=line_items,
             mode='payment',
             metadata={'order_id': self.object.id},
             success_url='{}{}'.format(settings.DOMAIN_NAME, reverse('orders_app:success_order_url')),
@@ -73,13 +77,10 @@ def stripe_webhook_view(request):
 
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
-        # Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
-        session = stripe.checkout.Session.retrieve(
-            event['data']['object']['id'],
-            expand=['line_items'],
-        )
+        session = event['data']['object']
 
-        line_items = session.line_items
+        # Fulfill the purchase...
+
         # Fulfill the purchase...
         fulfill_order(session)
 
@@ -91,3 +92,19 @@ def fulfill_order(session):
     order_id = session.metadata['order_id']
     order = OrderModel.objects.get(id=order_id)
     order.actions_after_payment()
+
+
+class OrderListView(ListView):
+    model = OrderModel
+    template_name = 'orders_app/orders.html'
+    context_object_name = 'orders_list'
+
+    def get_queryset(self):
+        queryset = OrderModel.objects.filter(user=self.request.user.id)
+        return queryset
+
+
+class OrderDetailView(DetailView):
+    model = OrderModel
+    template_name = 'orders_app/order.html'
+    context_object_name = 'order'

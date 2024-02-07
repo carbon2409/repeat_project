@@ -28,7 +28,7 @@ urlpatterns = [
     path('users/', include('users_app.urls', namespace='users_app')),
     path('orders/', include('orders_app.urls', namespace='orders_app')),
     path('accounts/', include('allauth.urls')),
-    path('webhook/stripe/', stripe_webhook_view, name='stripe_webhook_url'),
+    path('stripe/webhook/', stripe_webhook_view, name='stripe_webhook_url'),
     path("__debug__/", include("debug_toolbar.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
