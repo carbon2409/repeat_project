@@ -5,6 +5,7 @@ from .models import CategoryModel, ProductsModel
 from django.core.paginator import Paginator
 from django.core.cache import cache
 
+
 def main_page(request):
     return render(request, 'index.html')
 

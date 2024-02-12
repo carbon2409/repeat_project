@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-
+from orders_app.views import stripe_webhook_view
 from products_app.views import main_page
 
 urlpatterns = [
@@ -28,6 +28,7 @@ urlpatterns = [
     path('users/', include('users_app.urls', namespace='users_app')),
     path('orders/', include('orders_app.urls', namespace='orders_app')),
     path('accounts/', include('allauth.urls')),
+    path('stripe/webhook/', stripe_webhook_view, name='stripe_webhook_url'),
     path("__debug__/", include("debug_toolbar.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

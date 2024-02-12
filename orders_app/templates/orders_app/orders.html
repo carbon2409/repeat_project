@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static humanize %}
     {% block title %}Store - Заказы{% endblock %}
 
 {% block bootstrap_core_css %}
@@ -22,7 +22,7 @@
                 <table class="table">
                     <thead>
                     <tr class="table-light">
-                        <th scope="col">#</th>
+                        <th scope="col"></th>
                         <th scope="col">Статус</th>
                         <th scope="col">Создан</th>
                         <th scope="col">Итого</th>
@@ -30,33 +30,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Оплачен</td>
-                        <td>21 авг. 21 года</td>
-                        <td>5 070 руб.</td>
+                    
+                    {% for order in orders_list %}
+                    <tr class="{% if order.status == 4 %}table-success
+                                {% elif order.status == 3 %}table-info{% endif %}">
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ order.get_status_display }}</td>
+                        <td>{{ order.created_at|naturaltime }}</td>
+                        <td>{% if basket %} {{ basket.totally }}
+                            {% else %} {{ order.basket.totally }}
+                            {% endif %} руб.</td>
                         <td>
-                            <a href="order.html">просмотреть</a>
+                            <a href="{% url 'orders_app:order_detail_url' pk=order.id %}">просмотреть</a>
                         </td>
                     </tr>
-                    <tr class="table-success">
-                        <th scope="row">2</th>
-                        <td>Досталвен</td>
-                        <td>16 июля 21 года</td>
-                        <td>4 876 руб.</td>
-                        <td>
-                            <a href="order.html">просмотреть</a>
-                        </td>
-                    </tr>
-                    <tr class="table-info">
-                        <th scope="row">3</th>
-                        <td>В пути</td>
-                        <td>14 нояб. 21 года</td>
-                        <td>9 566 руб.</td>
-                        <td>
-                            <a href="order.html">просмотреть</a>
-                        </td>
-                    </tr>
+                    {% endfor %}
+                    
                     </tbody>
                 </table>
             </div>

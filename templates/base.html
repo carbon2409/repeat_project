@@ -46,7 +46,7 @@
                         <li>
                             <a class="dropdown-item" href="{% url 'users_app:profile_url' pk=user.id %}">Профиль</a>
                         </li>
-                        <li><a class="dropdown-item" href="orders/orders.html">Заказы</a></li>
+                        <li><a class="dropdown-item" href="{% url 'orders_app:orders_list_url' %}">Заказы</a></li>
                         {% if user.is_superuser %}
                         <li><a class="dropdown-item" href="/admin">Админ-панель</a></li>
                         {% endif %}
