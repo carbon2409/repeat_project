@@ -30,8 +30,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    
-                    {% for item in order.basket.product_items %}
+                        {% for item in order.basket.product_items %}
                     <tr>
                         <th scope="row">
                             {{ item.product_name }}
@@ -45,6 +44,12 @@
                     </tbody>
                 </table>
                 <p class="float-right h4 mt-3">Итого {{ order.basket.totally }} руб.</p>
+            
+                {% if order.get_status_display == 'Создан' %}
+                <a href="{% url 'orders_app:update_order_url' pk=order.id %}"><button  class="w-100 btn btn-primary btn-lg" type="submit"> Перейти к оплате</button></a>
+                {% else %}
+                <a href="{% url 'orders_app:orders_list_url' %}"><button  class="w-100 btn btn-primary btn-lg" type="submit">Назад к заказам</button></a>
+                {% endif %}
             </div>
         </div>
     </div>
