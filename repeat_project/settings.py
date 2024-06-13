@@ -100,17 +100,21 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'repeat_project_psql',
-        'USER': 'carbon',
-        'PASSWORD': '197053',
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),   # 2 способа получения перем. окр.
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
+# Redis
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379
+# Cache
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": f"redis://{REDIS_HOST}:{REDIS_PORT}/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
