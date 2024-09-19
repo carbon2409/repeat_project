@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'repeat_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'repeat_project_psql',
+        'NAME': 'django_store_repeat_psql',
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),   # 2 способа получения перем. окр.
         'HOST': os.getenv('DB_HOST'),

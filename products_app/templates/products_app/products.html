@@ -16,13 +16,24 @@
 
 {% block content %}
 <!-- Page Content -->
+        {% if messages %}
+    <div class="alert alert-success
+                        alert-dismissible fade show" role="alert"
+                             style="margin-top: 50px;" align="center">
+    <strong align="center">{% for message in messages %}
+                                {{ message }} <a href="/users/profile/2/">корзину</a>
+        </strong>
+             {% endfor %}
+        </div>
+    {% endif %}
+    
 <div class="container">
 
     <div class="row">
 
         <div class="col-lg-3">
 
-            <h1 class="my-4">Store</h1>
+            <h1 class="my-4">Категории</h1>
             <div class="list-group">
                 {% for category in categories %}
                 <a href="{% url 'products_app:category_list_url' category_slug=category.slug page_number=1 %}" class="list-group-item">{{ category.name }}</a>
@@ -95,17 +106,17 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item {% if not paginator.page_obj.has_previous %} disabled {% endif %}">
-                        <a class="page-link" href="{% if page_obj.has_previous %}
-                    {% url 'products_app:product_list_url' page_number=page_obj.previous_page_number %} {% else %}#{% endif %}"
-                           tabindex="-1" aria-disabled="true">Предыд.</a>
+{#                        <a class="page-link" href="{% if page_obj.has_previous %}#}
+{#                    {% url 'products_app:product_list_url' page_number=page_obj.previous_page_number %} {% else %}#{% endif %}"#}
+{#                           tabindex="-1" aria-disabled="true">Предыд.</a>#}
                     </li>
                 {% for page in paginator.page_range %}
                     <li class="page-item"><a class="page-link" href="{% url 'products_app:product_list_url' page_number=page %}">
                         {{ page }}</a></li>
                     {% endfor %}
                     <li class="page-item {% if not page_obj.has_next %}  {% endif %}">
-                        <a class="page-link" href="{% if page_obj.has_next %}
-            {% url 'products_app:product_list_url' page_number=page_obj.next_page_number %} {% else %}#{% endif %}">След.</a>
+{#                        <a class="page-link" href="{% if page_obj.has_next %}#}
+{#            {% url 'products_app:product_list_url' page_number=page_obj.next_page_number %} {% else %}#{% endif %}">След.</a>#}
                     </li>
                 </ul>
             </nav>

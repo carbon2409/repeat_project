@@ -87,6 +87,7 @@ class AddToCartView(TemplateView):
             item.save()
         else:
             BasketModel.objects.create(user=user, product=product)
+        messages.success(request=request, message=f'Товар успешно добавлен в ')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

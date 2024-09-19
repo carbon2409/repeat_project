@@ -22,10 +22,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h1 class="mt-5">Store</h1>
+                <h1 class="mt-5">Вас приветствует интернет-магазин одежды!</h1>
                 <p>
-                    Новые образы и лучшие бренды на Store.
-                    Бесплатная доставка по всему миру! Аутлет: до -70% Собственный бренд. -20% новым покупателям.
+                    Новые образы и лучшие бренды на Nizam-off Store.
+                    Бесплатная доставка по всему миру! Аутлет: до -70% Собственный бренд.
+                    {% if not user.is_authenticated %}Пожалуйста, <a href="{% url 'users_app:login_url' %}">авторизуйтесь 
+                        </a>для совершения покупок.{% endif %}
+                    P.S. Это демонстрационный проект, пожалуйста, не вводите реальные данные банковских карт!
                 </p>
                 <button id="start-purchase-btn" type="button" class="btn btn-lg">
                     <a id="start-purchase-link" href="{% url 'products_app:product_list_url' page_number=1 %}">
