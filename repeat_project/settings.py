@@ -26,14 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k)kd)ivp@5$s10_^x(_84d-smirz%2z(3(tb$v*#9igl+h0_1y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-DOMAIN_NAME = 'http://127.0.0.1:8001'
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+# DOMAIN_NAME = 'http://127.0.0.1:8000'
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
     "localhost",
+    '0.0.0.0'
     # ...
 ]
 # Application definition
@@ -108,7 +109,7 @@ DATABASES = {
 }
 
 # Redis
-REDIS_HOST = '127.0.0.1'
+REDIS_HOST = 'cache'
 REDIS_PORT = 6379
 # Cache
 CACHES = {
@@ -176,6 +177,7 @@ LOGOUT_REDIRECT_URL = '/'
 # Static
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+# STATIC_ROOT = BASE_DIR / 'static'
 # Media
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'

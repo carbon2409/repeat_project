@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    container_name: app
+    ports:
+      - 8000:8000
+    volumes:
+      - ./container_fixtures/:/app/fixtures/
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
+      - cache
+  db:
+    image: postgres:15
+    container_name: db
+    volumes:
+      - postgres_data_9:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=carbon
+      - POSTGRES_PASSWORD=197053
+      - POSTGRES_DB=django_store_psql
+    depends_on:
+      - cache
+  cache:
+    image: redis
+    container_name: cache
+    command: redis-server
+volumes:
+  postgres_data_9:
+
+
+
