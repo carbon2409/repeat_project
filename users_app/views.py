@@ -21,7 +21,8 @@ class UserRegistrationView(CreateView):
     context_object_name = 'form'
 
     def post(self, request, *args, **kwargs):
-        messages.success(request, message='Вы успешно зарегистрировались')
+        messages.success(request, message='Вы успешно зарегистрировались. Пожалуйста, \
+                                          проверьте свою почту для подтверждения email')
         response = super().post(request)
         return response
 
@@ -71,7 +72,7 @@ class EmailVerifyView(TemplateView):
             user.save()
             return render(request, 'users_app/email_verification.html')
         else:
-            return HttpResponseRedirect('<h1>Нет такого</h1>')
+            return HttpResponseRedirect('<h1>Некорректная ссылка или время подтверждения истекло!</h1>')
 
 
 class AddToCartView(TemplateView):

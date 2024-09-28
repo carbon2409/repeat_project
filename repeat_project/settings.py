@@ -23,13 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k)kd)ivp@5$s10_^x(_84d-smirz%2z(3(tb$v*#9igl+h0_1y'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
-# DOMAIN_NAME = 'http://127.0.0.1:8000'
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'app']
+DOMAIN_NAME = 'http://localhost:8000'
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
@@ -100,17 +100,17 @@ WSGI_APPLICATION = 'repeat_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_store_repeat_psql',
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),   # 2 способа получения перем. окр.
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'NAME': os.environ.get('POSTGRES_DB'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),   # 2 способа получения перем. окр.
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.environ.get('POSTGRES_PORT'),
     }
 }
 
 # Redis
-REDIS_HOST = 'cache'
-REDIS_PORT = 6379
+REDIS_HOST = os.getenv('REDIS_HOST')
+REDIS_PORT = os.getenv('REDIS_PORT')
 # Cache
 CACHES = {
     "default": {

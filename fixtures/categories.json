@@ -3,7 +3,7 @@
     "model": "products_app.categorymodel",
     "pk": 1,
     "fields": {
-      "name": "Новинки",
+      "name": "РќРѕРІРёРЅРєРё",
       "slug": "novinki"
     }
   },
@@ -11,7 +11,7 @@
     "model": "products_app.categorymodel",
     "pk": 2,
     "fields": {
-      "name": "Одежда",
+      "name": "РћРґРµР¶РґР°",
       "slug": "odezhda"
     }
   },
@@ -19,7 +19,7 @@
     "model": "products_app.categorymodel",
     "pk": 3,
     "fields": {
-      "name": "Обувь",
+      "name": "РћР±СѓРІСЊ",
       "slug": "obuv"
     }
   },
@@ -27,16 +27,8 @@
     "model": "products_app.categorymodel",
     "pk": 4,
     "fields": {
-      "name": "Аксессуары",
+      "name": "РђРєСЃРµСЃСЃСѓР°СЂС‹",
       "slug": "aksessuaryi"
-    }
-  },
-  {
-    "model": "products_app.categorymodel",
-    "pk": 5,
-    "fields": {
-      "name": "Подарки",
-      "slug": "podarki"
     }
   }
 ]

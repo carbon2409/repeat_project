@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 from products_app.models import ProductsModel
 
@@ -51,7 +52,7 @@ class EmailVerificationModel(models.Model):
     expired_at = models.DateTimeField()
 
     def send_verification_email(self):
-        link = f'http://127.0.0.1:8001/users/verify/{self.user.id}/{self.code}'
+        link = f'{settings.DOMAIN_NAME}/users/verify/{self.user.id}/{self.code}'
         send_mail(
             subject='Subject msg',
             message=f'Для подтверждения email перейдите по ссылке {link}',

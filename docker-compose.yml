@@ -5,30 +5,33 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./container_fixtures/:/app/fixtures/
+      - ./fixtures/:/app/fixtures/
     command: >
       sh -c "python manage.py migrate &&
+             python manage.py loaddata social_apps.json categories.json products.json &&
              python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
       - cache
+      - stripe-cli
   db:
     image: postgres:15
     container_name: db
     volumes:
-      - postgres_data_9:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=carbon
-      - POSTGRES_PASSWORD=197053
-      - POSTGRES_DB=django_store_psql
+      - postgres_data_10:/var/lib/postgresql/data/
+    env_file:
+      - .env
     depends_on:
       - cache
   cache:
     image: redis
     container_name: cache
     command: redis-server
+  stripe-cli:
+    image: stripe/stripe-cli:latest
+    container_name: stripe-cli
+    command: "listen --api-key ${STRIPE_CLI_KEY} --device-name ${STRIPE_DEVICE_NAME} --forward-to app:8000/stripe/webhook/"
+    env_file:
+      - .env
 volumes:
-  postgres_data_9:
-
-
-
+  postgres_data_10:

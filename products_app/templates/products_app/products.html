@@ -21,7 +21,7 @@
                         alert-dismissible fade show" role="alert"
                              style="margin-top: 50px;" align="center">
     <strong align="center">{% for message in messages %}
-                                {{ message }} <a href="/users/profile/2/">корзину</a>
+                                {{ message }} <a href="/users/profile/{{ user.id }}/">корзину</a>
         </strong>
              {% endfor %}
         </div>
