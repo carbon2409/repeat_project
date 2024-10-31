@@ -2,14 +2,17 @@ services:
   app:
     build: .
     container_name: app
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
     volumes:
       - ./fixtures/:/app/fixtures/
+      - static_volume:/app/static/
+      - media_volume:/app/media/
     command: >
       sh -c "python manage.py migrate &&
              python manage.py loaddata social_apps.json categories.json products.json &&
-             python manage.py runserver 0.0.0.0:8000"
+             python manage.py collectstatic --noinput && 
+             gunicorn repeat_project.wsgi:application --bind 0.0.0.0:8000"
     depends_on:
       - db
       - cache
@@ -18,7 +21,7 @@ services:
     image: postgres:15
     container_name: db
     volumes:
-      - postgres_data_10:/var/lib/postgresql/data/
+      - postgres_data_2:/var/lib/postgresql/data/
     env_file:
       - .env
     depends_on:
@@ -30,8 +33,32 @@ services:
   stripe-cli:
     image: stripe/stripe-cli:latest
     container_name: stripe-cli
-    command: "listen --api-key ${STRIPE_CLI_KEY} --device-name ${STRIPE_DEVICE_NAME} --forward-to app:8000/stripe/webhook/"
+    command: "listen --api-key ${STRIPE_CLI_KEY} --device-name ${STRIPE_DEVICE_NAME} --forward-to ${DOMAIN_NAME}/stripe/webhook/"
     env_file:
       - .env
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    volumes:
+      - static_volume:/app/static/
+      - media_volume:/app/media/
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - app
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot/ --email carbon24092409@gmail.com --agree-tos --no-eff-email -d store.nk-club.ru
+    depends_on:
+      - nginx
 volumes:
-  postgres_data_10:
+  postgres_data_2:
+  static_volume:
+  media_volume:

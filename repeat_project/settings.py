@@ -26,15 +26,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'app']
-DOMAIN_NAME = 'http://localhost:8000'
+DOMAIN_NAME = os.getenv('DOMAIN_NAME')
+ALLOWED_HOSTS = ['store.nk-club.ru', 'app', DOMAIN_NAME, "45.144.28.65", 'localhost']
+
+CSRF_TRUSTED_ORIGINS = [DOMAIN_NAME]
 INTERNAL_IPS = [
     # ...
-    "127.0.0.1",
-    "localhost",
-    '0.0.0.0'
+    "45.144.28.65",
+    "store.nk-club.ru",
+    DOMAIN_NAME,
+    'localhost'
     # ...
 ]
 # Application definition
@@ -175,11 +178,14 @@ LOGOUT_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 # Static
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_URL = '/static/'
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / 'static']
+else:
+    STATIC_ROOT = BASE_DIR / 'static'
 # STATIC_ROOT = BASE_DIR / 'static'
 # Media
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 # Fixtures
 FIXTURE_DIRS = [BASE_DIR / 'fixtures']

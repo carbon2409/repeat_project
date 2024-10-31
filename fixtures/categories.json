@@ -1,14 +1,6 @@
 [
   {
     "model": "products_app.categorymodel",
-    "pk": 1,
-    "fields": {
-      "name": "Новинки",
-      "slug": "novinki"
-    }
-  },
-  {
-    "model": "products_app.categorymodel",
     "pk": 2,
     "fields": {
       "name": "Одежда",
